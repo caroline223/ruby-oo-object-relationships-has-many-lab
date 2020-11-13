@@ -1,12 +1,18 @@
+require 'pry'
+
 class Artist
 
     attr_accessor :name, :songs 
 
     @@song_count = 0
 
+    @@all = []
+    
+
     def initialize(name)
         @name = name
         @songs = []
+        @@all << self 
     end
 
     def songs
@@ -29,8 +35,15 @@ class Artist
        
     end
 
+    def self.all
+        @@all 
+    end
+
     def self.song_count
-       @@song_count
+       new_array = Artist.all.collect do |artist|
+            artist.songs.length
+       end
+       new_array.sum 
     end
 
 end
